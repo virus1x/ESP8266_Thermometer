@@ -8,40 +8,40 @@
 
 /*
 выводит данные в топики:
-	ESP"ChipId"/adc  				        //показания АЦП
-			       /rssi 				        //качество сигнала WI-FI
-			       /uptime 			        //время активности за цикл 
-	           /wifi 				        //ID подключеной WI-FI сети
+	ESP"ChipId"/adc  		        //показания АЦП
+		   /rssi 		        //качество сигнала WI-FI
+        	   /uptime 			//время активности за цикл 
+	           /wifi 		        //ID подключеной WI-FI сети
 	           /sleeped 		        //заданое время сна
-	           /vbat 				        //напряжение батареи
-	           /dsw"номер датчика"	//температура с датчиков 
+	           /vbat 		        //напряжение батареи
+	           /dsw"номер датчика"	    	//температура с датчиков 
 принимает данные в топиках:
-	ESP"ChipId"/sleep 				      //задает время сна
+	ESP"ChipId"/sleep 			//задает время сна
 */
 //***Парраметры***//
 
 #define ONE_WIRE_BUS 2     		 // Шина датчика температуры с подтяжеой 4,7к на VCC
 #define DS18B20_pin  5			 // Пин питания DS18B20
 int ssid_quantity = 3;			 // Количество перебираемых WI-FI сетей
-const char* ssid[] = {	"WIFI1", // имя точек доступа вашей домашней Wi-Fi сети
-						"WIFI2",
-						"WIFI3"
-					 }; 
+const char* ssid[] = {	"WIFI1", 	 // имя точек доступа вашей домашней Wi-Fi сети
+			"WIFI2",
+			"WIFI3"
+		     }; 
 
 const char* pass[] = {	"pass1", // пароли доступа вашей домашней Wi-Fi сети
-						"pass2",
-						"pass3"
-					 };   
-const char *mqtt_server = "x.x.x.x";   // ip адес сервер MQTT броккера
-const int mqtt_port = 1883;            // порт MQTT броккера
-const char *mqtt_user = "user";        // логин MQTT броккера
-const char *mqtt_pass = "user";        // пароль MQTT броккера
-const char *host = "ESP8266_Temp";     // идентификатор в локальной сети                                                              
-int sleep = 10; 				// таймер сна в минутах , необходимо соеденить GPIO16 и RESET
-int lowsleep = 60;				// таймер сна для низкого заряда 
+			"pass2",
+			"pass3"
+		     };   
+const char *mqtt_server = "x.x.x.x";    // ip адес сервер MQTT броккера
+const int mqtt_port = 1883;             // порт MQTT броккера
+const char *mqtt_user = "user";         // логин MQTT броккера
+const char *mqtt_pass = "user";         // пароль MQTT броккера
+const char *host = "ESP8266_Temp";      // идентификатор в локальной сети                                                              
+int sleep = 10; 		  	// таймер сна в минутах , необходимо соеденить GPIO16 и RESET
+int lowsleep = 60;			// таймер сна для низкого заряда 
 float TempDS[11];   			// массив хранения температуры c рахных датчиков 
-float V_min = 3.10;				// напряжение сабатывания датчика ниского заряда 
-float ADC_coefficient = 4.64; 	// коэффициент АЦП VREF * ((DIV_R1 + DIV_R2) / DIV_R2)
+float V_min = 3.10;			// напряжение сабатывания датчика ниского заряда 
+float ADC_coefficient = 4.64; 		// коэффициент АЦП VREF * ((DIV_R1 + DIV_R2) / DIV_R2)
 //****************//
 
 
@@ -51,7 +51,7 @@ float ADC_coefficient = 4.64; 	// коэффициент АЦП VREF * ((DIV_R1 
 float Vbat;
 int sleeping;
 int inDS = 0; 				// индекс датчика в массиве температур
-int count = 6;          	// счетчик таймера для ежеминутной отправки данных
+int count = 6;          		// счетчик таймера для ежеминутной отправки данных
 String EspTopic = "";  
 int ssid_count = 0; 
 float adc; 
