@@ -15,7 +15,7 @@ MQTT клиент для контроля темератуы на базе ESP82
 ## О протоколе MQTT:
 * выводит данные в топики:
 ```
-ESP"ChipId"/adc  		//показания АЦП 
+ESP"ChipId" /adc  		//показания АЦП 
 	    /rssi 		//сила сигнала WI-FI
       	    /uptime 	        //время активности за цикл 
 	    /wifi 	        //ID подключеной WI-FI сети
@@ -28,8 +28,12 @@ ESP"ChipId"/adc  		//показания АЦП
 ESP"ChipId"/sleep 	        //задает время сна
 ```
 *ChipId* - серийный номер ESP выводится по UART во время запуска<br>
-*Номер датчика* - количество подключеных датчиков определяется автоматически, сортируется по серийному номеру и выводится по очереди.
-## Библиотека 
+*Номер датчика* - количество подключеных датчиков определяется автоматически, сортируется по серийному номеру и выводится по очереди.<br>
+пример:
+```
+ESP11743151/dsw0
+```
+## Библиотеки 
 * [Temperature-Control](https://github.com/milesburton/Arduino-Temperature-Control-Library)
 * [OneWire](https://github.com/PaulStoffregen/OneWire)
 * [PubSubClient](https://github.com/Imroy/pubsubclient)
